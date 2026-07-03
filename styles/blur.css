@@ -1,0 +1,270 @@
+/**
+ * blur.css — Injected into WhatsApp Web.
+ * Provides the blur classes applied by content.js.
+ * Uses CSS custom properties for dynamic control.
+ */
+
+:root {
+  --wps-blur: 8px;
+  --wps-transition: 0.18s ease;
+  --wps-reveal-transition: 0.12s ease;
+}
+
+/* ── Circular avatar blur fix ─────────────────────────────────────────────── */
+/* WhatsApp clips avatars with border-radius; blur must sit on the img itself  */
+[data-testid="avatar-photo"].wps-blur,
+[data-testid="avatar-photo"].wps-blur-pixelated,
+[data-testid="default-user"].wps-blur,
+[data-testid="default-user"].wps-blur-pixelated,
+._aigt.wps-blur,
+._aigt.wps-blur-pixelated,
+._aigi.wps-blur,
+._aigi.wps-blur-pixelated {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* ── Base blur class ───────────────────────────────────────────────────────── */
+
+.wps-blur {
+  filter: blur(var(--wps-blur)) !important;
+  transition: filter var(--wps-transition) !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* ── Pixelated preset (SVG-based) ──────────────────────────────────────────── */
+
+.wps-blur-pixelated {
+  filter: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='p'><feFlood x='4' y='4' height='2' width='2'/><feComposite width='8' height='8'/><feTile result='a'/><feComposite in='SourceGraphic' in2='a' operator='in'/><feMorphology operator='dilate' radius='4'/></filter></svg>#p") !important;
+  transition: filter var(--wps-transition) !important;
+}
+
+/* ── Hover reveal ──────────────────────────────────────────────────────────── */
+
+.wps-hover-reveal:hover {
+  filter: none !important;
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+  transition: filter var(--wps-reveal-transition) !important;
+}
+
+/* ── Temporary full reveal ─────────────────────────────────────────────────── */
+
+.wps-revealed .wps-blur,
+.wps-revealed .wps-blur-pixelated {
+  filter: none !important;
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+}
+
+/* ── Individual chat reveal (eye icon click) ───────────────────────────────── */
+
+.wps-chat-revealed.wps-blur,
+.wps-chat-revealed.wps-blur-pixelated {
+  filter: none !important;
+  user-select: auto !important;
+}
+
+/* ── Presentation mode overlay ─────────────────────────────────────────────── */
+
+#wps-presentation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  animation: wps-fade-in 0.3s ease;
+}
+
+#wps-presentation-overlay .wps-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#wps-presentation-overlay .wps-shield-icon {
+  width: 80px;
+  height: 80px;
+  opacity: 0.9;
+  animation: wps-pulse 2.5s ease-in-out infinite;
+}
+
+#wps-presentation-overlay h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+#wps-presentation-overlay p {
+  font-size: 15px;
+  opacity: 0.65;
+  margin: 0;
+}
+
+#wps-presentation-overlay .wps-exit-btn {
+  margin-top: 32px;
+  padding: 10px 24px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#wps-presentation-overlay .wps-exit-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ── Eye icon buttons ──────────────────────────────────────────────────────── */
+
+.wps-eye-btn {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  background: rgba(0, 0, 0, 0.45);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 9999;
+  padding: 0;
+}
+
+.wps-eye-btn svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.8;
+}
+
+/* Show eye icon on row hover */
+[data-testid="cell-frame-container"]:hover .wps-eye-btn,
+[role="listitem"]:hover .wps-eye-btn {
+  opacity: 1;
+}
+
+/* ── Status bar / countdown ────────────────────────────────────────────────── */
+
+#wps-status-bar {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483646;
+  background: rgba(20, 20, 30, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 8px 18px;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  animation: wps-slide-up 0.25s ease;
+  pointer-events: none;
+}
+
+#wps-status-bar.wps-clickable {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+#wps-status-bar .wps-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4caf50;
+  flex-shrink: 0;
+}
+
+#wps-status-bar .wps-dot.wps-active {
+  background: #ff5252;
+  animation: wps-blink 1.2s ease-in-out infinite;
+}
+
+/* ── Notification badge replacement ───────────────────────────────────────── */
+
+.wps-badge-hidden {
+  visibility: hidden !important;
+}
+
+.wps-badge-dot::before {
+  content: '•' !important;
+}
+
+.wps-badge-dot > * {
+  display: none !important;
+}
+
+/* ── Fake chat overlay ─────────────────────────────────────────────────────── */
+
+.wps-fake-chat-overlay {
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 8px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.wps-fake-message {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  align-self: flex-start;
+  max-width: 70%;
+}
+
+.wps-fake-message.wps-sent {
+  align-self: flex-end;
+  background: rgba(37, 211, 102, 0.15);
+}
+
+/* ── Animations ────────────────────────────────────────────────────────────── */
+
+@keyframes wps-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes wps-slide-up {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes wps-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%       { transform: scale(1.07); opacity: 1; }
+}
+
+@keyframes wps-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
