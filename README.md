@@ -221,7 +221,7 @@ whatsapp-privacy-shield/
 
 Learn how to install, configure, and use WhatsApp Privacy Shield on the **Techvyana2.0** YouTube channel:
 
-🔗 **[youtube.com/channel/UCtOsvuTLp9qefl1yoQDqmPg/](https://youtube.com/channel/UCtOsvuTLp9qefl1yoQDqmPg/)**
+🔗 **https://youtu.be/nHsRRrbodu4**
 
 ---
 
