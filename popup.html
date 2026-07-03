@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WhatsApp Privacy Shield</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup-root" id="app">
+
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="header-brand">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.5C17.25 22.15 21 17.25 21 12V6L12 2Z"
+                fill="currentColor" opacity="0.18"/>
+          <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.5C17.25 22.15 21 17.25 21 12V6L12 2Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <h1>Privacy Shield</h1>
+          <p class="header-subtitle" id="status-text">Loading…</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="btn-settings" title="Open full settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main toggle row -->
+    <section class="section-card">
+      <div class="toggle-row">
+        <div class="toggle-label">
+          <span class="toggle-icon">🔒</span>
+          <div>
+            <strong>Privacy Blur</strong>
+            <p class="muted">Blur sensitive content on WhatsApp Web</p>
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="toggle-enabled" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Quick actions -->
+    <section class="section-card">
+      <p class="section-label">Quick Actions</p>
+      <div class="btn-grid">
+        <button class="action-btn" id="btn-presentation">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+          <span>Presentation</span>
+        </button>
+
+        <button class="action-btn" id="btn-hover-mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <span>Hover Mode</span>
+        </button>
+
+        <button class="action-btn" id="btn-fake-chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Fake Chat</span>
+        </button>
+
+        <button class="action-btn panic-btn" id="btn-panic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>Panic</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Temporary reveal -->
+    <section class="section-card">
+      <p class="section-label">Temporary Reveal</p>
+      <div class="temp-reveal-row">
+        <select id="temp-reveal-duration" class="select-field">
+          <option value="10">10 seconds</option>
+          <option value="30" selected>30 seconds</option>
+          <option value="60">1 minute</option>
+          <option value="300">5 minutes</option>
+        </select>
+        <button class="btn-reveal" id="btn-temp-reveal">Reveal</button>
+      </div>
+      <div id="temp-reveal-countdown" class="countdown" style="display:none;">
+        Revealed — <span id="countdown-seconds">30</span>s remaining
+        <button class="btn-cancel-reveal" id="btn-cancel-reveal">Cancel</button>
+      </div>
+    </section>
+
+    <!-- Password unlock -->
+    <section class="section-card" id="password-section" style="display:none;">
+      <p class="section-label">🔐 Password Unlock</p>
+      <div class="password-row">
+        <input type="password" id="password-input" class="input-field" placeholder="Enter password…" />
+        <button class="btn-unlock" id="btn-unlock">Unlock</button>
+      </div>
+      <p class="error-text" id="password-error" style="display:none;">Incorrect password</p>
+    </section>
+
+    <!-- Blur strength -->
+    <section class="section-card">
+      <p class="section-label">Blur Intensity</p>
+      <div class="preset-pills" id="blur-presets">
+        <button class="pill" data-preset="low">Low</button>
+        <button class="pill" data-preset="medium">Med</button>
+        <button class="pill active" data-preset="high">High</button>
+        <button class="pill" data-preset="extreme">Max</button>
+        <button class="pill" data-preset="pixelated">Pixel</button>
+      </div>
+      <div class="slider-row">
+        <span class="muted">0</span>
+        <input type="range" id="blur-radius" min="1" max="40" value="8" class="range-slider" />
+        <span class="muted">40px</span>
+      </div>
+    </section>
+
+    <!-- Smart blur toggles -->
+    <section class="section-card">
+      <p class="section-label">Smart Blur</p>
+      <div class="smart-blur-grid" id="smart-blur-grid">
+        <label class="cb-row"><input type="checkbox" data-key="blurAvatars" checked /><span>Avatars</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurNames" checked /><span>Names</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurMessages" checked /><span>Messages</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurImages" checked /><span>Images</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurEmojis" /><span>Emojis</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurStickers" checked /><span>Stickers</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurVideos" checked /><span>Videos</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurVoiceNotes" checked /><span>Voice</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurLinks" checked /><span>Links</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurLastSeen" checked /><span>Last Seen</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurChatPreview" checked /><span>Preview</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurNotificationBadges" checked /><span>Badges</span></label>
+        <label class="cb-row"><input type="checkbox" data-key="blurAbout" checked /><span>About</span></label>
+      </div>
+    </section>
+
+    <!-- Footer shortcuts -->
+    <footer class="popup-footer">
+      <span class="shortcut-hint">Ctrl+Shift+B · Toggle blur</span>
+      <span class="shortcut-hint">ESC×3 · Panic</span>
+    </footer>
+
+  </div>
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

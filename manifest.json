@@ -1,0 +1,97 @@
+{
+  "manifest_version": 3,
+  "name": "WhatsApp Privacy Shield",
+  "version": "1.0.0",
+  "description": "Protect your WhatsApp Web privacy with smart blur, hover reveal, panic mode, and more.",
+  "author": "WhatsApp Privacy Shield",
+
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    },
+    "default_title": "WhatsApp Privacy Shield"
+  },
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://web.whatsapp.com/*"],
+      "js": ["content-bundle.js"],
+      "css": ["styles/blur.css"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+
+  "permissions": [
+    "storage",
+    "alarms",
+    "contextMenus",
+    "notifications",
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "https://web.whatsapp.com/*"
+  ],
+
+  "commands": {
+    "toggle-blur": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+B",
+        "mac": "Command+Shift+B"
+      },
+      "description": "Toggle blur on/off"
+    },
+    "presentation-mode": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P",
+        "mac": "Command+Shift+P"
+      },
+      "description": "Toggle Presentation Mode"
+    },
+    "hover-mode": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+H",
+        "mac": "Command+Shift+H"
+      },
+      "description": "Toggle Hover Mode"
+    },
+    "lock-now": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Lock / enable blur immediately"
+    }
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*", "styles/*"],
+      "matches": ["https://web.whatsapp.com/*"]
+    }
+  ]
+}
